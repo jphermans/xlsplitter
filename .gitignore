@@ -1,0 +1,62 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.spec
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter/IPython
+.ipynb_checkpoints
+
+# Streamlit
+.streamlit/config.toml
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Logs and output
+*.log
+*.out
+*.tmp
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archive or distribution files
+*.zip
+*.tar.gz
+*.rar
+
+# GitHub Actions artifacts (optional)
+*.exe
+*.dll
+*.zip
+
+# System files
+$RECYCLE.BIN/
+*.bak
