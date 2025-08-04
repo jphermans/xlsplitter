@@ -1,10 +1,11 @@
-name: Build Windows EXE
+name: Build XLSplitter (Windows, macOS, Linux)
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-windows:
+    name: Windows Build (.exe)
     runs-on: windows-latest
 
     steps:
@@ -25,12 +26,70 @@ jobs:
         run: |
           pyinstaller --onefile --noconsole app.py
 
-      - name: Upload EXE artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: xlsplitter-exe
-          path: dist/app.exe
-
       - name: Zip EXE file
         run: |
-          powershell Compress-Archive -Path dist/app.exe -DestinationPath dist/xlsplitter.zip
+          powershell Compress-Archive -Path dist/app.exe -DestinationPath dist/xlsplitter-windows.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xlsplitter-windows
+          path: dist/xlsplitter-windows.zip
+
+  build-linux:
+    name: Linux Build (binary)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build binary
+        run: |
+          pyinstaller --onefile --noconsole app.py
+          zip dist/xlsplitter-linux.zip dist/app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xlsplitter-linux
+          path: dist/xlsplitter-linux.zip
+
+  build-macos:
+    name: macOS Build (binary)
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build binary
+        run: |
+          pyinstaller --onefile --noconsole app.py
+          zip dist/xlsplitter-macos.zip dist/app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xlsplitter-macos
+          path: dist/xlsplitter-macos.zip
