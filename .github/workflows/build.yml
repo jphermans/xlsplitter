@@ -1,9 +1,7 @@
 name: Build Windows EXE
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -36,8 +34,3 @@ jobs:
       - name: Zip EXE file
         run: |
           powershell Compress-Archive -Path dist/app.exe -DestinationPath dist/xlsplitter.zip
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: dist/app.exe
