@@ -24,10 +24,7 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller --onefile --noconsole ^
-            --copy-metadata streamlit ^
-            --copy-metadata openpyxl ^
-            app.py
+          run: pyinstaller --onefile --noconsole --copy-metadata streamlit --copy-metadata openpyxl app.py
 
       - name: Zip EXE file
         run: |
