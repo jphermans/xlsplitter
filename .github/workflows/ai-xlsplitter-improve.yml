@@ -2,9 +2,9 @@ name: AI Improve XLSplitter
 
 on:
   issues:
-    types: [opened, edited, labeled]
+    types: [ opened, edited, labeled ]
   issue_comment:
-    types: [created]
+    types: [ created ]
 
 permissions:
   contents: write
