@@ -53,27 +53,23 @@ Relevant files:
 Return only a unified diff (git-style). No explanation, no extra text, no code fences.
 """
 
-# === API call to Anthropic ===
+# === API call to Moonshot ===
 headers = {
-    "x-api-key": LLM_API_KEY,
-    "anthropic-version": "2023-06-01",
-    "content-type": "application/json"
+    "Authorization": f"Bearer {LLM_API_KEY}",
+    "Content-Type": "application/json"
 }
 
 payload = {
     "model": LLM_MODEL,
-    "max_tokens": 2048,
-    "system": system_prompt,
-    "messages": [
-        {"role": "user", "content": user_prompt}
-    ]
+    "prompt": f"{system_prompt}\n\n{user_prompt}",
+    "max_tokens": 2048
 }
 
 print("🔁 Requesting Claude model from:", LLM_API_URL)
 res = requests.post(LLM_API_URL, headers=headers, json=payload)
 
 try:
-    patch = res.json()["content"][0]["text"]
+    patch = res.json().get("text", "").strip()
 except Exception as e:
     print("❌ Failed to parse Claude response:", e)
     print("Full response:", res.text)
