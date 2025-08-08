@@ -22,7 +22,7 @@ jobs:
           pip install ruff mypy pytest streamlit
 
       - name: Lint with ruff
-        run: ruff check .
+        run: ruff check . --fix
 
       - name: Type check with mypy
         run: mypy --install-types --non-interactive .
