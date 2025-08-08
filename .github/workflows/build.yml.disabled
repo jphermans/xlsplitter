@@ -1,5 +1,8 @@
 name: Build XLSplitter (Windows, macOS, Linux)
 
+# Voeg dit toe:
+if: false
+
 on:
   workflow_dispatch:
 
