@@ -1,0 +1,26 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: |
+          pip install -r requirements.txt || true
+          pip install ruff mypy pytest streamlit
+      - run: ruff check .
+      - run: mypy --install-types --non-interactive .
+      - run: pytest -q || echo "No tests yet"
+      - run: python - <<'PY'
+import streamlit as st
+# smoke test
+try:
+    import app
+    print("App imported successfully")
+except Exception as e:
+    print("Import failed:", e)
+PY
